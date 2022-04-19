@@ -19,40 +19,40 @@ def find_word(num):
             all_words.lower()
             words = all_words.split()
             word_num = random.randint(0, len(words))
-            word = words[word_num]
-            return word.lower()
+            fin_word = words[word_num]
+            return fin_word.lower()
     if num == '4':
         print("\nYou have 5 guesses")
         with open("four.txt", "r") as wordfile:
             all_words = wordfile.read()
             words = all_words.split()
             word_num = random.randint(0, len(words))
-            word = words[word_num]
-            return word
+            fin_word = words[word_num]
+            return fin_word
     if num == '5':
         print("\nYou have 6 guesses")
         with open("five.txt", "r") as wordfile:
             all_words = wordfile.read()
             words = all_words.split()
             word_num = random.randint(0, len(words))
-            word = words[word_num]
-            return word
+            fin_word = words[word_num]
+            return fin_word
     if num == '6':
         print("\nYou have 7 guesses")
         with open("six.txt", "r") as wordfile:
             all_words = wordfile.read()
             words = all_words.split()
             word_num = random.randint(0, len(words))
-            word = words[word_num]
-            return word
+            fin_word = words[word_num]
+            return fin_word
     if num == '7':
         print("\nYou have 8 guesses")
         with open("seven.txt", "r") as wordfile:
             all_words = wordfile.read()
             words = all_words.split()
             word_num = random.randint(0, len(words))
-            word = words[word_num]
-            return word
+            fin_word = words[word_num]
+            return fin_word
 
 
 def turn_green(letter):
@@ -85,19 +85,19 @@ def instructions():
     sleep(1.5)
     print("\nIf a letter in your guess is correct, the letter will turn green")
     sleep(1.5)
-    guess = "cat"
-    word = "pot"
-    word_letters = list(word)
+    ex_guess = "cat"
+    ex_word = "pot"
+    ex_word_letters = list(ex_word)
     print("\nExample:")
-    check_word(guess, word_letters)
+    check_word(ex_guess, ex_word_letters)
     sleep(1.5)
     print(
         Fore.RESET + "\nIf a letter in your guess is also in the word but not in the correct spot, the letter will "
                      "turn yellow")
     sleep(1.5)
     print("\nExample:")
-    guess = 'tin'
-    check_word(guess, word_letters)
+    ex_guess = 'tin'
+    check_word(ex_guess, ex_word_letters)
     sleep(1.5)
     print("\nIf your guess is correct, a congratulatory message will appear")
     sleep(1.5)
@@ -109,28 +109,28 @@ def instructions():
     sleep(1.5)
 
 
-def check_word(guess, word_letters):
+def check_word(user_guess, genword_letters):
     """
     Returns the users guess with the letter colors changed depending on their placement in the generated word
-    :param guess: Players guess
-    :param word_letters: Generated word split into individual letters
+    :param user_guess: Players guess
+    :param genword_letters: Generated word split into individual letters
     :return: Players guess with the letters their corresponding colors
     """
 
-    guess_letters = list(guess)
-    while len(guess_letters) != len(word_letters):
-        guess = input("Please enter the correct number of letters: ")
-        guess_letters = list(guess)
-    if guess_letters == word_letters:
+    guess_letters = list(user_guess)
+    while len(guess_letters) != len(genword_letters):
+        user_guess = input("Please enter the correct number of letters: ")
+        guess_letters = list(user_guess)
+    if guess_letters == genword_letters:
         return True
     else:
-        for i in range(len(guess_letters)):
-            if guess_letters[i] in word_letters and guess_letters[i] != word_letters[i]:
-                turn_yellow(guess_letters[i])
-            if guess_letters[i] == word_letters[i]:
-                turn_green(guess_letters[i])
-            elif guess_letters[i] not in word_letters:
-                print(Fore.RESET + guess_letters[i])
+        for j in range(len(guess_letters)):
+            if guess_letters[j] in genword_letters and guess_letters[j] != genword_letters[j]:
+                turn_yellow(guess_letters[j])
+            if guess_letters[j] == genword_letters[j]:
+                turn_green(guess_letters[j])
+            elif guess_letters[j] not in genword_letters:
+                print(Fore.RESET + guess_letters[j])
     return False
 
 
