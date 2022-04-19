@@ -8,6 +8,7 @@ colorama.init()
 
 def find_word(num):
     if num == '3':
+        print("You have 4 guesses")
         with open("three.txt", "r") as wordfile:
             all_words = wordfile.read()
             all_words.lower()
@@ -16,6 +17,7 @@ def find_word(num):
             word = words[word_num]
             return word.lower()
     if num == '4':
+        print("You have 5 guesses")
         with open("four.txt", "r") as wordfile:
             all_words = wordfile.read()
             words = all_words.split()
@@ -23,6 +25,7 @@ def find_word(num):
             word = words[word_num]
             return word
     if num == '5':
+        print("You have 6 guesses")
         with open("five.txt", "r") as wordfile:
             all_words = wordfile.read()
             words = all_words.split()
@@ -30,6 +33,7 @@ def find_word(num):
             word = words[word_num]
             return word
     if num == '6':
+        print("You have 7 guesses")
         with open("six.txt", "r") as wordfile:
             all_words = wordfile.read()
             words = all_words.split()
@@ -37,6 +41,7 @@ def find_word(num):
             word = words[word_num]
             return word
     if num == '7':
+        print("You have 8 guesses")
         with open("seven.txt", "r") as wordfile:
             all_words = wordfile.read()
             words = all_words.split()
@@ -56,6 +61,9 @@ def turn_yellow(letter):
 
 def check_word(guess, word_letters):
     guess_letters = list(guess)
+    while len(guess_letters) != len(word_letters):
+        guess = input("Please enter the correct number of letters: ")
+        guess_letters = list(guess)
     if guess_letters == word_letters:
         return True
     else:
@@ -73,9 +81,9 @@ def check_word(guess, word_letters):
 
 loop = True
 while loop:
-    p = input("Would you like to play a new game (press 1) or view the leaderboard (press 2): ")
+    p = input("Would you like to play a new game (press 1), view the leaderboard (press 2), or quit (press 3): ")
     if p == '1':
-        letters = input("Please enter the number of letters you want in your word (3-7)")
+        letters = input("Please enter the number of letters you want in your word (3-7): ")
         word = find_word(letters)
         word_letters = list(word)
         guesses = int(letters) + 1
@@ -89,14 +97,17 @@ while loop:
             words_guessed += 1
             if check_word(guess, word_letters):
                 print("Congratulations, you guessed the word in", words_guessed, "guesses")
-                break
+                loop = True
+                i = guesses
             elif words_guessed == guesses:
                 print(Fore.RESET + 'Sorry, you are out of guesses')
                 print("The word was:",word)
-    loop = True
+                loop = True
+            loop = True
+    if p == '3':
+        break
+
 
     # if p == 2:
     #     show_leaderboard()
 
-    if p != 1 or 2:
-        loop = False
