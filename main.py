@@ -7,6 +7,11 @@ colorama.init()
 
 
 def find_word(num):
+    """
+    Returns a randomly generated word with given correct number of letters
+    :param num: number of letters
+    :return: word
+    """
     if num == '3':
         print("\nYou have 4 guesses")
         with open("three.txt", "r") as wordfile:
@@ -51,14 +56,28 @@ def find_word(num):
 
 
 def turn_green(letter):
+    """
+    Turns a given letter green and prints it
+    :param letter: non-green letter
+    :return: printed green letter
+    """
     print(Fore.GREEN + letter)
 
 
 def turn_yellow(letter):
+    """
+    Turns a given letter yellow and prints it
+    :param letter: non-yellow letter
+    :return: printed yellow letter
+    """
     print(Fore.YELLOW + letter)
 
 
 def instructions():
+    """
+    Prints out the game instructions
+    :return: Instructions
+    """
     print("\nInstructions:")
     print("\nFirst, choose how many letters you would like to be in your word by entering a number 3 to 7")
     sleep(1.5)
@@ -91,6 +110,13 @@ def instructions():
 
 
 def check_word(guess, word_letters):
+    """
+    Returns the users guess with the letter colors changed depending on their placement in the generated word
+    :param guess: Players guess
+    :param word_letters: Generated word split into individual letters
+    :return: Players guess with the letters their corresponding colors
+    """
+
     guess_letters = list(guess)
     while len(guess_letters) != len(word_letters):
         guess = input("Please enter the correct number of letters: ")
@@ -124,6 +150,8 @@ while loop:
     p = input("Would you like to play a new game (press 1), or quit (press 2): ")
     if p == '1':
         letters = input("Please enter the number of letters you want in your word (3-7): ")
+        while letters != ('3' or '4' or '5' or '6' or '7'):
+            letters = input("Please enter a letter between 3 and 7: ")
         word = find_word(letters)
         word_letters = list(word)
         guesses = int(letters) + 1
