@@ -150,8 +150,6 @@ while loop:
     p = input("Would you like to play a new game (press 1), or quit (press 2): ")
     if p == '1':
         letters = input("Please enter the number of letters you want in your word (3-7): ")
-        while letters != ('3' or '4' or '5' or '6' or '7'):
-            letters = input("Please enter a letter between 3 and 7: ")
         word = find_word(letters)
         word_letters = list(word)
         guesses = int(letters) + 1
@@ -165,8 +163,7 @@ while loop:
             words_guessed += 1
             if check_word(guess, word_letters):
                 print("Congratulations, you guessed the word in", words_guessed, "guesses")
-                loop = True
-                i = guesses
+                break
             elif words_guessed == guesses:
                 print(Fore.RESET + 'Sorry, you are out of guesses')
                 print("The word was:", word)
