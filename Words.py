@@ -32,6 +32,7 @@ class words:
                     print(Fore.RESET + guess_letters[j], end="")
         return False
 
+
 class letter:
 
     def __init__(self, letter):
@@ -50,3 +51,57 @@ class letter:
         :return: printed yellow letter
         """
         print(Fore.YELLOW + self.letter, end="")
+
+
+class letter_number:
+
+    def __init__(self, num):
+        self.num = num
+
+    def find_word(self):
+        """
+        Returns a randomly generated word with given correct number of letters
+        :param num: number of letters
+        :return: word
+        """
+        if self.num == '3':
+            print("\nYou have 4 guesses")
+            with open("three.txt", "r") as wordfile:
+                all_words = wordfile.read()
+                all_words.lower()
+                words = all_words.split()
+                word_num = random.randint(0, len(words))
+                fin_word = words[word_num]
+                return fin_word.lower()
+        if self.num == '4':
+            print("\nYou have 5 guesses")
+            with open("four.txt", "r") as wordfile:
+                all_words = wordfile.read()
+                words = all_words.split()
+                word_num = random.randint(0, len(words))
+                fin_word = words[word_num]
+                return fin_word
+        if self.num == '5':
+            print("\nYou have 6 guesses")
+            with open("five.txt", "r") as wordfile:
+                all_words = wordfile.read()
+                words = all_words.split()
+                word_num = random.randint(0, len(words))
+                fin_word = words[word_num]
+                return fin_word
+        if self.num == '6':
+            print("\nYou have 7 guesses")
+            with open("six.txt", "r") as wordfile:
+                all_words = wordfile.read()
+                words = all_words.split()
+                word_num = random.randint(0, len(words))
+                fin_word = words[word_num]
+                return fin_word
+        if self.num == '7':
+            print("\nYou have 8 guesses")
+            with open("seven.txt", "r") as wordfile:
+                all_words = wordfile.read()
+                words = all_words.split()
+                word_num = random.randint(0, len(words))
+                fin_word = words[word_num]
+                return fin_word
