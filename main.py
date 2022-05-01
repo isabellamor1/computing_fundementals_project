@@ -4,6 +4,10 @@ from time import sleep
 import Words
 from Words import words
 from Words import letter_number as ln
+import Leaderboard
+from Leaderboard import TotalLeaderboard
+from Leaderboard import player
+from Leaderboard import Leaderboard
 
 colorama.init()
 
@@ -45,23 +49,24 @@ def instructions():
 loop = True
 
 print("Welcome to the word guessing game")
-n = input("Press 1 to read the instructions, press 2 to continue to the game, press any other key to quit: ")
+p = input("Press 1 to read the instructions, 2 to continue to the game, 3 to view the leaderboard, or any other key "
+          "to quit: ")
 
-if n != ('2' or '1'):
+if p != ('2' or '1' or '3'):
     loop = False
 
-if n == '1':
+if p == '1':
     instructions()
     loop = True
 
 while loop:
-    p = input("Would you like to play a new game (press 1), view the leaderboard (press 2), or quit (press 3): ")
-    if p == '1':
-        letters = input("Please enter the number of letters you want in your word (3-7): ")
-        num_class = ln(letters)
+
+    if p == '2':
+        wordlength = input("Please enter the number of letters you want in your word (3-7): ")
+        num_class = ln(wordlength)
         word = num_class.find_word()
         word_letters = list(word)
-        guesses = int(letters) + 1
+        guesses = int(wordlength) + 1
         words_guessed = 0
         for i in range(guesses):
             guess = ''
@@ -73,7 +78,8 @@ while loop:
             game = words(guess, word)
             if game.check_word():
                 print("\nCongratulations, you guessed the word in", words_guessed, "guesses")
-                name = input("Please enter your name")
+                name = input("Please enter your name:")
+                plr = player(name, wordlength, words_guessed)
 
                 break
             elif words_guessed == guesses:
@@ -81,12 +87,11 @@ while loop:
                 print("The word was:", word)
                 loop = True
             loop = True
-
-    #if p == '2':
-
+    p = input("Would you like to play a new game (press 1), view the leaderboard (press 2), or quit (press 3): ")
 
     if p == '3':
         break
-    if p != ('1' or '2' or '3'):
-        print("Please enter 1 or 2")
+    while p != ('1' or '2' or '3'):
+        print("Please enter 1, 2, or 3")
+        p = input("Would you like to play a new game (press 1), view the leaderboard (press 2), or quit (press 3): ")
 
