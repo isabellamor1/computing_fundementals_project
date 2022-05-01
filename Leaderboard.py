@@ -18,8 +18,9 @@ class Leaderboard:
         self.player = player
         self.players = []
 
-    def add_player(self):
-        self.players.append(self.player)
+
+    def add_player(self, player):
+        self.players.append(player)
 
     def takenumguess(self, player):
         return player.num_guess
@@ -29,9 +30,10 @@ class Leaderboard:
         return sorted_list
 
     def display_board(self):
-        print(self.wordlength, "Letter Words:\n")
+        print('\nLeaderboard for', self.wordlength, "Letter Words:\n")
         for i in range(len(self.players)):
-            print(i + 1,") ",self.player.name, "Number of guesses", self.player.num_guess)
+            self.player = self.players[i]
+            print(i + 1,") ",self.player.name, "   |   Number of guesses:", self.player.num_guess)
 
 class TotalLeaderboard:
 
@@ -48,4 +50,25 @@ class TotalLeaderboard:
     def display_total(self):
         print("Leaderboard:")
         for i in range(len(self.final_board)):
-            Leaderboard.display_board()
+            self.leaderboard = self.final_board[i]
+            Leaderboard.display_board(self.leaderboard)
+
+person = player('name', 3, 3)
+board3 = Leaderboard(3,person)
+board4 = Leaderboard(4,person)
+board5 = Leaderboard(5,person)
+board6 = Leaderboard(6,person)
+board7 = Leaderboard(7,person)
+
+def imput_player(player,num):
+    if num == 3:
+        board3.add_player(player)
+    if num == 4:
+        board4.add_player(player)
+    if num == 5:
+        board5.add_player(player)
+    if num == 6:
+        board6.add_player(player)
+    if num == 7:
+        board7.add_player(player)
+
