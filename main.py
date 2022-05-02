@@ -6,8 +6,16 @@ from Words import letter_number as ln
 from Leaderboard import player
 from Leaderboard import imput_player
 from Leaderboard import display_boards
+from Leaderboard import Leaderboard
 
 colorama.init()
+
+person = player('name', 3, 3)
+board3 = Leaderboard(3, person)
+board4 = Leaderboard(4, person)
+board5 = Leaderboard(5, person)
+board6 = Leaderboard(6, person)
+board7 = Leaderboard(7, person)
 
 
 def instructions():
@@ -24,9 +32,10 @@ def instructions():
     sleep(1.5)
     ex_guess = "cat"
     ex_word = "pot"
-    ex_word_letters = list(ex_word)
+    example = words(ex_guess, ex_word)
+
     print("\nExample:")
-    words.check_word(ex_guess)
+    example.check_word()
     sleep(1.5)
     print(
         Fore.RESET + "\nIf a letter in your guess is also in the word but not in the correct spot, the letter will "
@@ -34,7 +43,8 @@ def instructions():
     sleep(1.5)
     print("\nExample:")
     ex_guess = 'tin'
-    words.check_word(ex_guess)
+    example = words(ex_guess, ex_word)
+    example.check_word()
     sleep(1.5)
     print("\nIf your guess is correct, a congratulatory message will appear")
     sleep(1.5)
@@ -49,22 +59,28 @@ def instructions():
 loop = True
 
 print("Welcome to the word guessing game")
-p = input("Press 1 to read the instructions, 2 to continue to the game, or any other key to quit: ")
+p = input("Press 1 to play the game, 2 to view the instructions, or any other key to quit: ")
 
-if p != ('2' or '1' or '3'):
-    loop = False
+if p == '2':
+    instructions()
+    p = input(
+        "Would you like to play a new game (press 1), view the leaderboard (press 2), or quit (press any other key): ")
+    loop = True
 
 if p == '1':
-    instructions()
     loop = True
 
 while loop:
 
     if p == '2':
+        display_boards()
+        p = input(
+            "Would you like to play a new game (press 1), view the leaderboard (press 2), or quit (press any other key): ")
+
+    if p == '1':
         wordlength = input("Please enter the number of letters you want in your word (3-7): ")
         num_class = ln(wordlength)
         word = num_class.find_word()
-        word_letters = list(word)
         guesses = int(wordlength) + 1
         words_guessed = 0
         for i in range(guesses):
@@ -75,26 +91,30 @@ while loop:
                 guess = input(Fore.RESET + "\n\nEnter your next guess: ")
             words_guessed += 1
             game = words(guess, word)
+
+            if game.spell_check(wordlength):
+                pass
+            else:
+                while not game.spell_check(wordlength):
+                    guess = input('Please enter a real word: ')
+                    game = words(guess, word)
+                    game.spell_check(wordlength)
+
             if game.check_word():
                 print("\nCongratulations, you guessed the word in", words_guessed, "guesses")
                 name = input("Please enter your name:")
-                plr = player(name, wordlength, words_guessed)
-                imput_player(plr, wordlength)
+                plr = player(name, int(wordlength), int(words_guessed))
+                imput_player(plr, int(wordlength))
                 break
             elif words_guessed == guesses:
                 print(Fore.RESET + '\nSorry, you are out of guesses')
                 print("The word was:", word)
                 loop = True
             loop = True
-    p = input("Would you like to play a new game (press 1), view the leaderboard (press 2), or quit (press 3): ")
+        p = input(
+            "Would you like to play a new game (press 1), view the leaderboard (press 2), or quit (press any other key): ")
 
-    if p == '2':
-        display_boards()
-        p = input("Would you like to play a new game (press 1), view the leaderboard (press 2), or quit (press 3): ")
-        loop = True
-
-    else:
-        while p != ('1' or '2' or '3'):
-            print("Please enter 1, 2, or 3")
-            p = input(
-                "Would you like to play a new game (press 1), view the leaderboard (press 2), or quit (press 3): ")
+    # elif p != '1' or '2':
+    #     print('Thanks for playing')
+    #     loop = False
+    #     break
