@@ -1,15 +1,14 @@
 import colorama
 from colorama import Fore
 from time import sleep
-import Words
 from Words import words
 from Words import letter_number as ln
-import Leaderboard
-from Leaderboard import TotalLeaderboard
 from Leaderboard import player
-from Leaderboard import Leaderboard
+from Leaderboard import imput_player
+from Leaderboard import display_boards
 
 colorama.init()
+
 
 def instructions():
     """
@@ -46,11 +45,11 @@ def instructions():
     print("\nAfter you finish the game, you will have the option to play again\n")
     sleep(1.5)
 
+
 loop = True
 
 print("Welcome to the word guessing game")
-p = input("Press 1 to read the instructions, 2 to continue to the game, 3 to view the leaderboard, or any other key "
-          "to quit: ")
+p = input("Press 1 to read the instructions, 2 to continue to the game, or any other key to quit: ")
 
 if p != ('2' or '1' or '3'):
     loop = False
@@ -80,7 +79,7 @@ while loop:
                 print("\nCongratulations, you guessed the word in", words_guessed, "guesses")
                 name = input("Please enter your name:")
                 plr = player(name, wordlength, words_guessed)
-
+                imput_player(plr, wordlength)
                 break
             elif words_guessed == guesses:
                 print(Fore.RESET + '\nSorry, you are out of guesses')
@@ -89,9 +88,13 @@ while loop:
             loop = True
     p = input("Would you like to play a new game (press 1), view the leaderboard (press 2), or quit (press 3): ")
 
-    if p == '3':
-        break
-    while p != ('1' or '2' or '3'):
-        print("Please enter 1, 2, or 3")
+    if p == '2':
+        display_boards()
         p = input("Would you like to play a new game (press 1), view the leaderboard (press 2), or quit (press 3): ")
+        loop = True
 
+    else:
+        while p != ('1' or '2' or '3'):
+            print("Please enter 1, 2, or 3")
+            p = input(
+                "Would you like to play a new game (press 1), view the leaderboard (press 2), or quit (press 3): ")
