@@ -6,6 +6,9 @@ class player:
         self.wordlegth = wordlength
         self.num_guess = num_guess
 
+    def __str__(self):
+        return f'player({self.name}, {self.wordlegth}, {self.num_guess})'
+
     def display_player(self):
         print(self.name, "Number of guesses: ", self.num_guess)
 
@@ -18,6 +21,8 @@ class Leaderboard:
         self.player = player
         self.players = []
 
+    def __str__(self):
+        return f'(wordlength:{self.wordlength})'
 
     def add_player(self, player):
         self.players.append(player)
@@ -42,15 +47,20 @@ class TotalLeaderboard:
         self.leaderboard = leaderboard
         self.wordlength = wordlength
         self.final_board = []
+        self.players = self.leaderboard.players
 
-    def add_board(self):
-        self.final_board.append(self.leaderboard)
+    def __str__(self):
+        return f'(wordlength: {self.wordlength})'
+
+
+    def add_board(self, leaderboard):
+        self.final_board.append(leaderboard)
         #sort so boards are in ascending order
 
     def display_total(self):
-        print("Leaderboard:")
         for i in range(len(self.final_board)):
             self.leaderboard = self.final_board[i]
+            print(i)
             Leaderboard.display_board(self.leaderboard)
 
 person = player('name', 3, 3)
