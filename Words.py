@@ -46,6 +46,11 @@ class Words:
         return False
 
     def spell_check(self, num):
+        """
+        Checks to see if the users guess is in a word file
+        :param num: Number of letters in the word
+        :return: True or False
+        """
         if num == '3':
             with open("three.txt", "r") as wordfile:
                 all_words = wordfile.read()
