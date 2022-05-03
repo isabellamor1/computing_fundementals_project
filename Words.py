@@ -2,7 +2,7 @@ import random
 from colorama import Fore
 
 
-class words:
+class Words:
 
     def __init__(self, guess, word):
         self.guess = guess
@@ -87,7 +87,7 @@ class words:
                     return True
 
 
-class letter_number:
+class LetterNumber:
 
     def __init__(self, num):
         self.num = num
